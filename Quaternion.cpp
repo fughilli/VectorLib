@@ -13,7 +13,7 @@
 //  You should have received a copy of the GNU General Public License
 //  along with the Vector library.  If not, see <http://www.gnu.org/licenses/>.
 //
-//  Copyright 2013 Kevin Balke (fughilli@gmail.com)
+//  Copyright 2013-2014 Kevin Balke (fughilli@gmail.com)
 
 #include "Vector.h"
 
@@ -182,6 +182,11 @@ Quaternion Quaternion::slerp(const Quaternion& endpt, fp_type t) const
     qret.z = (z*ratA + endpt.z*ratB);
     qret.w = (w*ratA + endpt.w*ratB);
     return qret;
+}
+
+static Quaternion Quaternion::fromAxisAngle(const Vector3d& axis, fp_type theta)
+{
+    return axis.rotationAroundAxis(theta);
 }
 
 const Quaternion Quaternion::zero = Quaternion(0,0,0,0);

@@ -13,7 +13,7 @@
 //  You should have received a copy of the GNU General Public License
 //  along with the Vector library.  If not, see <http://www.gnu.org/licenses/>.
 //
-//  Copyright 2013 Kevin Balke (fughilli@gmail.com)
+//  Copyright 2013-2014 Kevin Balke (fughilli@gmail.com)
 
 #include "Vector.h"
 
@@ -158,11 +158,15 @@ Vector2d Vector2d::lerp(const Vector2d& endpt, fp_type t) const
     return (((*this)*(1 - t)) + (endpt*t));
 }
 
+#ifdef VECTOR_PRINT_PRECISION
 std::ostream& operator<<(std::ostream& os, Vector2d& vec)
 {
-    os << "<" << vec.x << ", " << vec.y << ">";
+    os << "<"
+    << (round(vec.x * pow(10, VECTOR_PRINT_PRECISION))/pow(10, VECTOR_PRINT_PRECISION)) << ", "
+    << (round(vec.y * pow(10, VECTOR_PRINT_PRECISION))/pow(10, VECTOR_PRINT_PRECISION)) << ">";
     return os;
 }
+#endif
 
 const Vector2d Vector2d::i = Vector2d(1,0);
 const Vector2d Vector2d::j = Vector2d(0,1);

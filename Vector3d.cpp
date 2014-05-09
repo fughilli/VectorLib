@@ -13,7 +13,7 @@
 //  You should have received a copy of the GNU General Public License
 //  along with the Vector library.  If not, see <http://www.gnu.org/licenses/>.
 //
-//  Copyright 2013 Kevin Balke (fughilli@gmail.com)
+//  Copyright 2013-2014 Kevin Balke (fughilli@gmail.com)
 
 #include "Vector.h"
 
@@ -163,10 +163,10 @@ fp_type Vector3d::rho() const
 //! Compute the angle between two Vector3d's
 fp_type Vector3d::angleTo(const Vector3d& other) const
 {
-//    fp_type dotprod = dot(other);
-//    dotprod /= (magnitude() * other.magnitude());
-//    return acos(dotprod);
-    return LIMIT_RAD_RANGE(atan2(cross(other).magnitude(), dot(other)));
+    fp_type dotprod = dot(other);
+    dotprod /= (magnitude() * other.magnitude());
+    return acos(dotprod);
+    //return LIMIT_RAD_RANGE(atan2(cross(other).magnitude(), dot(other)));
 }
 
 Quaternion Vector3d::quaternionTo(const Vector3d& other) const
@@ -184,20 +184,6 @@ Quaternion Vector3d::rotationAroundAxis(fp_type theta) const
 //! Rotate the vector around the axis axis by the angle theta (+theta is CCW if vector points towards observer)
 Vector3d Vector3d::rotate(const Vector3d& axis, fp_type theta) const
 {
-//    fp_type cosT = cos(theta);
-//    fp_type sinT = sin(theta);
-//    Vector3d uaxis = axis.unit();
-//    fp_type ux = uaxis.x;
-//    fp_type uy = uaxis.y;
-//    fp_type uz = uaxis.z;
-//    //R = 	[(cosT + ((ux * ux) * (1.0f - cosT))) ; ((ux * uy * (1.0f - cosT)) - (uz * sinT)) ; ((ux * uz * (1.0f - cosT)) + (uz * sinT))]
-//    //		[((uy * ux * (1.0f - cosT)) + (uz * sinT)) ; (cosT + ((uy * uy) * (1.0f - cosT))) ; ((uy * uz * (1.0f - cosT)) - (ux * sinT))]
-//    //		[((uz * ux * (1.0f - cosT)) - (uy * sinT)) ; ((uz * uy * (1.0f - cosT)) + (ux * sinT)) ; (cosT + ((uz * uz) * (1.0f - cosT)))]
-//    fp_type tx = (cosT + ((ux * ux) * (1.0f - cosT))) * this->x + ((ux * uy * (1.0f - cosT)) - (uz * sinT)) * this->y + ((ux * uz * (1.0f - cosT)) + (uz * sinT)) * this->z;
-//    fp_type ty = ((uy * ux * (1.0f - cosT)) + (uz * sinT)) * this->x + (cosT + ((uy * uy) * (1.0f - cosT))) * this->y + ((uy * uz * (1.0f - cosT)) - (ux * sinT)) * this->z;
-//    fp_type tz = ((uz * ux * (1.0f - cosT)) - (uy * sinT)) * this->x + ((uz * uy * (1.0f - cosT)) + (ux * sinT)) * this->y + (cosT + ((uz * uz) * (1.0f - cosT))) * this->z;
-//    Vector3d temp(tx, ty, tz);
-//    return temp;
     Vector3d uaxis = axis.unit();
     return (((*this)*cos(theta)) + (cross(uaxis)*sin(theta)) + (uaxis*dot(uaxis)*(1-cos(theta))));
 }
@@ -220,6 +206,17 @@ Vector3d Vector3d::lerp(const Vector3d& endpt, fp_type t) const
 {
     return (((*this)*(1 - t)) + (endpt*t));
 }
+
+#ifdef VECTOR_PRINT_PRECISION
+std::ostream& operator<<(std::ostream& os, Vector3d& vec)
+{
+    os << "<" //<< std::setprecision(VECTOR_PRINT_PRECISION)
+    << round(vec.x * pow(10, VECTOR_PRINT_PRECISION))/pow(10, VECTOR_PRINT_PRECISION) << ", " //<< std::setprecision(VECTOR_PRINT_PRECISION)
+    << round(vec.y * pow(10, VECTOR_PRINT_PRECISION))/pow(10, VECTOR_PRINT_PRECISION) << ", " //<< std::setprecision(VECTOR_PRINT_PRECISION)
+    << round(vec.z * pow(10, VECTOR_PRINT_PRECISION))/pow(10, VECTOR_PRINT_PRECISION) << ">";
+    return os;
+}
+#endif
 
 const Vector3d Vector3d::i = Vector3d(1.0f,0.0f,0.0f);
 const Vector3d Vector3d::j = Vector3d(0.0f,1.0f,0.0f);
