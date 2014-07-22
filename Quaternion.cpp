@@ -184,7 +184,7 @@ Quaternion Quaternion::slerp(const Quaternion& endpt, fp_type t) const
     return qret;
 }
 
-static Quaternion Quaternion::fromAxisAngle(const Vector3d& axis, fp_type theta)
+Quaternion Quaternion::fromAxisAngle(const Vector3d& axis, fp_type theta)
 {
     return axis.rotationAroundAxis(theta);
 }
