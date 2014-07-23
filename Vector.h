@@ -187,6 +187,7 @@ public:
 
 std::ostream& operator<<(std::ostream& os, Vector2d& vec);
 std::ostream& operator<<(std::ostream& os, Vector3d& vec);
+std::ostream& operator<<(std::ostream& os, Quaternion& vec);
 
 #ifdef ARDUINO
 void printVector2d(Vector2d arg);

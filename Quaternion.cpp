@@ -189,6 +189,18 @@ Quaternion Quaternion::fromAxisAngle(const Vector3d& axis, fp_type theta)
     return axis.rotationAroundAxis(theta);
 }
 
+#ifdef VECTOR_PRINT_PRECISION
+std::ostream& operator<<(std::ostream& os, Quaternion& vec)
+{
+    os << "<" //<< std::setprecision(VECTOR_PRINT_PRECISION)
+    << round(vec.x * pow(10, VECTOR_PRINT_PRECISION))/pow(10, VECTOR_PRINT_PRECISION) << ", " //<< std::setprecision(VECTOR_PRINT_PRECISION)
+    << round(vec.y * pow(10, VECTOR_PRINT_PRECISION))/pow(10, VECTOR_PRINT_PRECISION) << ", " //<< std::setprecision(VECTOR_PRINT_PRECISION)
+    << round(vec.z * pow(10, VECTOR_PRINT_PRECISION))/pow(10, VECTOR_PRINT_PRECISION) << ", "
+    << round(vec.w * pow(10, VECTOR_PRINT_PRECISION))/pow(10, VECTOR_PRINT_PRECISION) << ">";
+    return os;
+}
+#endif
+
 const Quaternion Quaternion::zero = Quaternion(0,0,0,0);
 const Quaternion Quaternion::identity = Quaternion(0,0,0,1);
 const Quaternion Quaternion::i = Quaternion(1,0,0,0);
