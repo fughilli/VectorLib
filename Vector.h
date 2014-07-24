@@ -20,7 +20,7 @@
 
 #define VECTORS
 
-#ifdef ARDUINO
+#if defined(ARDUINO) || defined(ENERGIA)
 #include "Energia.h"
 #define fp_type float
 #else
@@ -185,13 +185,13 @@ public:
     static const Vector3d one;
 };
 
+#if defined(ARDUINO) || defined(ENERGIA)
+void printVector2d(Vector2d arg);
+void printVector3d(Vector3d arg);
+#else
 std::ostream& operator<<(std::ostream& os, Vector2d& vec);
 std::ostream& operator<<(std::ostream& os, Vector3d& vec);
 std::ostream& operator<<(std::ostream& os, Quaternion& vec);
-
-#ifdef ARDUINO
-void printVector2d(Vector2d arg);
-void printVector3d(Vector3d arg);
 #endif
 
 #endif
