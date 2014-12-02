@@ -191,7 +191,7 @@ Quaternion Quaternion::fromAxisAngle(const Vector3d& axis, fp_type theta)
 
 Quaternion Quaternion::operator-() const
 {
-    return Quaternion(-this->x, -this->y, -this->z, -this->w));
+    return Quaternion(-this->x, -this->y, -this->z, -this->w);
 }
 
 #ifdef VECTOR_PRINT_PRECISION
