@@ -158,6 +158,11 @@ Vector2d Vector2d::lerp(const Vector2d& endpt, fp_type t) const
     return (((*this)*(1 - t)) + (endpt*t));
 }
 
+Vector2d Vector2d::operator-() const
+{
+    return Vector2d(-this->x, -this->y);
+}
+
 #ifdef VECTOR_PRINT_PRECISION
 std::ostream& operator<<(std::ostream& os, Vector2d& vec)
 {

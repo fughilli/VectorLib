@@ -207,6 +207,11 @@ Vector3d Vector3d::lerp(const Vector3d& endpt, fp_type t) const
     return (((*this)*(1 - t)) + (endpt*t));
 }
 
+Vector3d Vector3d::operator-() const
+{
+    return Vector3d(-this->x, -this->y, -this->z);
+}
+
 #ifdef VECTOR_PRINT_PRECISION
 std::ostream& operator<<(std::ostream& os, Vector3d& vec)
 {

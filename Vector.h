@@ -86,6 +86,8 @@ public:
 
     bool operator==(const Quaternion& other) const;
 
+    Quaternion operator-() const;
+
     Quaternion conjugate() const;
     fp_type norm();
     Quaternion unit();
@@ -120,6 +122,8 @@ public:
     void operator/=(fp_type scalar);				        // Scalar divide
 
     bool operator==(const Vector2d& other) const;           // Boolean compare
+
+    Vector2d operator-() const;
 
     fp_type dot(const Vector2d &other) const;		        // Compute the dot product of two Vector2d's
     Vector2d rotate(fp_type theta) const;			        // Rotates the vector around the origin by an angle theta
@@ -156,6 +160,8 @@ public:
     void operator/=(fp_type scalar);				// Scalar divide
 
     bool operator==(const Vector3d& other) const;            // Boolean compare
+
+    Vector3d operator-() const;
 
     fp_type dot(const Vector3d& other) const;					// Compute dot product of two Vector3d's
     Vector3d cross(const Vector3d& other) const;				// Compute the cross product of two Vector3d's (orthogonal Vector3d)
