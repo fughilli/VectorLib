@@ -1,3 +1,6 @@
+*.a
+*.o
+*.sh
 *.cbp
 test.cpp
 *.depend
