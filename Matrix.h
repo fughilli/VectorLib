@@ -82,6 +82,11 @@ struct Matrix4x4
     Matrix4x4 operator/(fp_type scalar) const;		        // Scalar divide
     void operator/=(fp_type scalar);				        // Scalar divide
 
+    Matrix4x4 operator*(const Matrix4x4& other) const;		// Scalar multiply
+    void operator*=(const Matrix4x4& other);				// Scalar multiply
+    Matrix4x4 operator/(const Matrix4x4& other) const;		// Scalar divide
+    void operator/=(const Matrix4x4& other);				// Scalar divide
+
     fp_type det() const;
 
     Vector3d operator*(const Vector3d& other) const;       // Apply the matrix transform to a Vector3d
