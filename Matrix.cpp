@@ -89,6 +89,29 @@ void Matrix4x4::operator-=(const Matrix4x4& other)
     }
 }
 
+Matrix4x4 Matrix4x4::operator*(const Matrix4x4& other) const
+{
+    // TODO: implement
+}
+
+void Matrix4x4::operator*=(const Matrix4x4& other)
+{
+    Matrix4x4 res = (*this) * other;
+    memcpy(vals.a, res.vals.a, 16 * sizeof(fp_type));
+}
+
+Matrix4x4 Matrix4x4::operator/(const Matrix4x4& other) const
+{
+    // TODO: implement
+}
+
+void Matrix4x4::operator/=(const Matrix4x4& other)
+{
+    Matrix4x4 res = (*this) / other;
+    memcpy(vals.a, res.vals.a, 16 * sizeof(fp_type));
+}
+
+
 Matrix4x4 Matrix4x4::operator*(fp_type scalar) const
 {
 
