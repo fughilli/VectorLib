@@ -5,9 +5,11 @@
 
 struct Matrix2x2
 {
-    union {
+    union
+    {
         fp_type a[2][2];
-        struct {
+        struct
+        {
             fp_type f00, f01;
             fp_type f10, f11;
         } d;
@@ -32,9 +34,11 @@ struct Matrix2x2
 
 struct Matrix3x3
 {
-    union {
+    union
+    {
         fp_type a[3][3];
-        struct {
+        struct
+        {
             fp_type f00, f01, f02;
             fp_type f10, f11, f12;
             fp_type f20, f21, f22;
@@ -60,15 +64,24 @@ struct Matrix3x3
 
 struct Matrix4x4
 {
-    union {
+    union
+    {
         fp_type a[4][4];
-        struct {
+        struct
+        {
             fp_type f00, f01, f02, f03;
             fp_type f10, f11, f12, f13;
             fp_type f20, f21, f22, f23;
             fp_type f30, f31, f32, f33;
         } d;
     } vals;
+
+    Matrix4x4(const fp_type* init);
+    Matrix4x4(fp_type f00, fp_type f01, fp_type f02, fp_type f03,
+              fp_type f10, fp_type f11, fp_type f12, fp_type f13,
+              fp_type f20, fp_type f21, fp_type f22, fp_type f23,
+              fp_type f30, fp_type f31, fp_type f32, fp_type f33);
+    Matrix4x4();
 
     Matrix4x4 inverse() const;                              // Compute the matrix inverse
     Matrix4x4 transpose() const;                            // Transpose rows and columns
@@ -92,6 +105,10 @@ struct Matrix4x4
     Vector3d operator*(const Vector3d& other) const;       // Apply the matrix transform to a Vector3d
 
     Matrix4x4 operator-() const;
+
+    static const Matrix4x4 zero;
+    static const Matrix4x4 identity;
+    static const Matrix4x4 one;
 };
 
 #endif // _MATRIX_H_

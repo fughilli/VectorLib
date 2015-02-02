@@ -1,4 +1,58 @@
 #include "Matrix.h"
+#include <cstring>
+
+const Matrix4x4 Matrix4x4::zero = Matrix4x4();
+const Matrix4x4 Matrix4x4::one = Matrix4x4(1,1,1,1,
+                                 1,1,1,1,
+                                 1,1,1,1,
+                                 1,1,1,1);
+const Matrix4x4 Matrix4x4::identity = Matrix4x4(1,0,0,0,
+                                      0,1,0,0,
+                                      0,0,1,0,
+                                      0,0,0,1);
+
+Matrix4x4::Matrix4x4()
+{
+    for(uint32_t i = 0; i < 16; i++)
+    {
+        ((fp_type*)vals.a)[i] = (fp_type)0;
+    }
+}
+
+Matrix4x4::Matrix4x4(const fp_type* init)
+{
+    for(uint32_t i = 0; i < 16; i++)
+    {
+        ((fp_type*)vals.a)[i] = init[i];
+    }
+}
+
+Matrix4x4::Matrix4x4(fp_type f00, fp_type f01, fp_type f02, fp_type f03,
+                     fp_type f10, fp_type f11, fp_type f12, fp_type f13,
+                     fp_type f20, fp_type f21, fp_type f22, fp_type f23,
+                     fp_type f30, fp_type f31, fp_type f32, fp_type f33)
+{
+    vals.d.f00 = f00;
+    vals.d.f01 = f01;
+    vals.d.f02 = f02;
+    vals.d.f03 = f03;
+
+    vals.d.f10 = f10;
+    vals.d.f11 = f11;
+    vals.d.f12 = f12;
+    vals.d.f13 = f13;
+
+    vals.d.f20 = f20;
+    vals.d.f21 = f21;
+    vals.d.f22 = f22;
+    vals.d.f23 = f23;
+
+    vals.d.f30 = f30;
+    vals.d.f31 = f31;
+    vals.d.f32 = f32;
+    vals.d.f33 = f33;
+}
+
 
 Matrix4x4 Matrix4x4::inverse() const
 {
@@ -8,19 +62,30 @@ Matrix4x4 Matrix4x4::inverse() const
     return transpose()/det();
 }
 
+// Credit: http://www.cg.info.hiroshima-cu.ac.jp/~miyazaki/knowledge/teche23.html
 fp_type Matrix4x4::det() const
 {
     fp_type ret = 0;
 
-    ret += (a11*a22*a33*a44 + a11*a23*a34*a42 + a11*a24*a32*a43);
-    ret += (a12*a21*a34*a43 + a12*a23*a31*a44 + a12*a24*a33*a41);
-    ret += (a13*a21*a32*a44 + a13*a22*a34*a41 + a13*a24*a31*a42);
-    ret += (a14*a21*a33*a42 + a14*a22*a31*a43 + a14*a23*a32*a41);
+//    ret += (vals.d.f11*vals.d.f22*vals.d.f33*vals.d.f44 + vals.d.f11*vals.d.f23*vals.d.f34*vals.d.f42 + vals.d.f11*vals.d.f24*vals.d.f32*vals.d.f43);
+//    ret += (vals.d.f12*vals.d.f21*vals.d.f34*vals.d.f43 + vals.d.f12*vals.d.f23*vals.d.f31*vals.d.f44 + vals.d.f12*vals.d.f24*vals.d.f33*vals.d.f41);
+//    ret += (vals.d.f13*vals.d.f21*vals.d.f32*vals.d.f44 + vals.d.f13*vals.d.f22*vals.d.f34*vals.d.f41 + vals.d.f13*vals.d.f24*vals.d.f31*vals.d.f42);
+//    ret += (vals.d.f14*vals.d.f21*vals.d.f33*vals.d.f42 + vals.d.f14*vals.d.f22*vals.d.f31*vals.d.f43 + vals.d.f14*vals.d.f23*vals.d.f32*vals.d.f41);
+//
+//    ret -= (vals.d.f11*vals.d.f22*vals.d.f34*vals.d.f43 + vals.d.f11*vals.d.f23*vals.d.f32*vals.d.f44 + vals.d.f11*vals.d.f24*vals.d.f33*vals.d.f42);
+//    ret -= (vals.d.f12*vals.d.f21*vals.d.f33*vals.d.f44 + vals.d.f12*vals.d.f23*vals.d.f34*vals.d.f41 + vals.d.f12*vals.d.f24*vals.d.f31*vals.d.f43);
+//    ret -= (vals.d.f13*vals.d.f21*vals.d.f34*vals.d.f42 + vals.d.f13*vals.d.f22*vals.d.f31*vals.d.f44 + vals.d.f13*vals.d.f24*vals.d.f32*vals.d.f41);
+//    ret -= (vals.d.f14*vals.d.f21*vals.d.f32*vals.d.f43 + vals.d.f14*vals.d.f22*vals.d.f33*vals.d.f41 + vals.d.f14*vals.d.f23*vals.d.f31*vals.d.f42);
 
-    ret -= (a11*a22*a34*a43 + a11*a23*a32*a44 + a11*a24*a33*a42);
-    ret -= (a12*a21*a33*a44 + a12*a23*a34*a41 + a12*a24*a31*a43);
-    ret -= (a13*a21*a34*a42 + a13*a22*a31*a44 + a13*a24*a32*a41);
-    ret -= (a14*a21*a32*a43 + a14*a22*a33*a41 + a14*a23*a31*a42);
+    ret += (vals.d.f00*vals.d.f11*vals.d.f22*vals.d.f33 + vals.d.f00*vals.d.f12*vals.d.f23*vals.d.f31 + vals.d.f00*vals.d.f13*vals.d.f21*vals.d.f32);
+    ret += (vals.d.f01*vals.d.f10*vals.d.f23*vals.d.f32 + vals.d.f01*vals.d.f12*vals.d.f20*vals.d.f33 + vals.d.f01*vals.d.f13*vals.d.f22*vals.d.f30);
+    ret += (vals.d.f02*vals.d.f10*vals.d.f21*vals.d.f33 + vals.d.f02*vals.d.f11*vals.d.f23*vals.d.f30 + vals.d.f02*vals.d.f13*vals.d.f20*vals.d.f31);
+    ret += (vals.d.f03*vals.d.f10*vals.d.f22*vals.d.f31 + vals.d.f03*vals.d.f11*vals.d.f20*vals.d.f32 + vals.d.f03*vals.d.f12*vals.d.f21*vals.d.f30);
+
+    ret -= (vals.d.f00*vals.d.f11*vals.d.f23*vals.d.f32 + vals.d.f00*vals.d.f12*vals.d.f21*vals.d.f33 + vals.d.f00*vals.d.f13*vals.d.f22*vals.d.f31);
+    ret -= (vals.d.f01*vals.d.f10*vals.d.f22*vals.d.f33 + vals.d.f01*vals.d.f12*vals.d.f23*vals.d.f30 + vals.d.f01*vals.d.f13*vals.d.f20*vals.d.f32);
+    ret -= (vals.d.f02*vals.d.f10*vals.d.f23*vals.d.f31 + vals.d.f02*vals.d.f11*vals.d.f20*vals.d.f33 + vals.d.f02*vals.d.f13*vals.d.f21*vals.d.f30);
+    ret -= (vals.d.f03*vals.d.f10*vals.d.f21*vals.d.f32 + vals.d.f03*vals.d.f11*vals.d.f22*vals.d.f30 + vals.d.f03*vals.d.f12*vals.d.f20*vals.d.f31);
 
     return ret;
 }
@@ -28,26 +93,26 @@ fp_type Matrix4x4::det() const
 Matrix4x4 Matrix4x4::transpose() const
 {
     Matrix4x4 ret;
-    ret.vals.d.f00 = vals.d.f00;
-    ret.vals.d.f11 = vals.d.f11;
-    ret.vals.d.f22 = vals.d.f22;
-    ret.vals.d.f33 = vals.d.f33;
 
+    ret.vals.d.f00 = vals.d.f00;
     ret.vals.d.f01 = vals.d.f10;
     ret.vals.d.f02 = vals.d.f20;
     ret.vals.d.f03 = vals.d.f30;
 
     ret.vals.d.f10 = vals.d.f01;
+    ret.vals.d.f11 = vals.d.f11;
     ret.vals.d.f12 = vals.d.f21;
     ret.vals.d.f13 = vals.d.f31;
 
     ret.vals.d.f20 = vals.d.f02;
     ret.vals.d.f21 = vals.d.f12;
+    ret.vals.d.f22 = vals.d.f22;
     ret.vals.d.f23 = vals.d.f32;
 
     ret.vals.d.f30 = vals.d.f03;
     ret.vals.d.f31 = vals.d.f13;
     ret.vals.d.f32 = vals.d.f23;
+    ret.vals.d.f33 = vals.d.f33;
 
     return ret;
 }
@@ -56,12 +121,9 @@ Matrix4x4 Matrix4x4::operator+(const Matrix4x4& other) const
 {
     Matrix4x4 ret;
 
-    for(uint32_t i = 0; i < 4; i++)
+    for(uint32_t i = 0; i < 16; i++)
     {
-        for(uint32_t j = 0; j < 4; j++)
-        {
-            ret.vals.a[i][j] = vals.a[i][j] + other.vals.a[i][j];
-        }
+        ((fp_type*)ret.vals.a)[i] = ((fp_type*)vals.a)[i] + ((fp_type*)other.vals.a)[i];
     }
 
     return ret;
@@ -69,12 +131,9 @@ Matrix4x4 Matrix4x4::operator+(const Matrix4x4& other) const
 
 void Matrix4x4::operator+=(const Matrix4x4& other)
 {
-    for(uint32_t i = 0; i < 4; i++)
+    for(uint32_t i = 0; i < 16; i++)
     {
-        for(uint32_t j = 0; j < 4; j++)
-        {
-            vals.a[i][j] += other.vals.a[i][j];
-        }
+        ((fp_type*)vals.a)[i] += ((fp_type*)other.vals.a)[i];
     }
 }
 
@@ -82,12 +141,9 @@ Matrix4x4 Matrix4x4::operator-(const Matrix4x4& other) const
 {
     Matrix4x4 ret;
 
-    for(uint32_t i = 0; i < 4; i++)
+    for(uint32_t i = 0; i < 16; i++)
     {
-        for(uint32_t j = 0; j < 4; j++)
-        {
-            ret.vals.a[i][j] = vals.a[i][j] - other.vals.a[i][j];
-        }
+        ((fp_type*)ret.vals.a)[i] = ((fp_type*)vals.a)[i] - ((fp_type*)other.vals.a)[i];
     }
 
     return ret;
@@ -95,12 +151,9 @@ Matrix4x4 Matrix4x4::operator-(const Matrix4x4& other) const
 
 void Matrix4x4::operator-=(const Matrix4x4& other)
 {
-    for(uint32_t i = 0; i < 4; i++)
+    for(uint32_t i = 0; i < 16; i++)
     {
-        for(uint32_t j = 0; j < 4; j++)
-        {
-            vals.a[i][j] -= other.vals.a[i][j];
-        }
+        ((fp_type*)vals.a)[i] -= ((fp_type*)other.vals.a)[i];
     }
 }
 
@@ -152,7 +205,7 @@ Matrix4x4 Matrix4x4::operator*(fp_type scalar) const
     Matrix4x4 ret;
 
     for(uint32_t i = 0; i < 16; i++)
-        ret.vals.a[i] = vals.a[i] * scalar;
+        ((fp_type*)ret.vals.a)[i] = ((fp_type*)vals.a)[i] * scalar;
 
     return ret;
 }
@@ -168,7 +221,7 @@ Matrix4x4 Matrix4x4::operator/(fp_type scalar) const
     Matrix4x4 ret;
 
     for(uint32_t i = 0; i < 16; i++)
-        ret.vals.a[i] = vals.a[i] / scalar;
+        ((fp_type*)ret.vals.a)[i] = ((fp_type*)vals.a)[i] / scalar;
 
     return ret;
 }
@@ -195,7 +248,7 @@ Matrix4x4 Matrix4x4::operator-() const
     Matrix4x4 ret;
 
     for(uint32_t i = 0; i < 16; i++)
-        ret.vals.a[i] = -vals.a[i];
+        ((fp_type*)ret.vals.a)[i] = -((fp_type*)vals.a)[i];
 
     return ret;
 }
