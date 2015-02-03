@@ -53,6 +53,29 @@ Matrix4x4::Matrix4x4(fp_type f00, fp_type f01, fp_type f02, fp_type f03,
     vals.d.f33 = f33;
 }
 
+Matrix4x4::Matrix4x4(const Quaternion& rot)
+{
+    // TODO: Implement
+    Matrix4x4();
+}
+
+Matrix4x4::Matrix4x4(fp_type scale)
+{
+    Matrix4x4();
+    vals.d.f00 = scale;
+    vals.d.f11 = scale;
+    vals.d.f22 = scale;
+    vals.d.f33 = 1;
+}
+
+Matrix4x4::Matrix4x4(const Vector3d& trans)
+{
+    Matrix4x4();
+    vals.d.f03 = trans.x;
+    vals.d.f13 = trans.y;
+    vals.d.f23 = trans.z;
+    vals.d.f33 = 1;
+}
 
 Matrix4x4 Matrix4x4::inverse() const
 {

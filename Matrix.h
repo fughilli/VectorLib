@@ -83,6 +83,10 @@ struct Matrix4x4
               fp_type f30, fp_type f31, fp_type f32, fp_type f33);
     Matrix4x4();
 
+    Matrix4x4(const Quaternion& rot);
+    Matrix4x4(fp_type scale);
+    Matrix4x4(const Vector3d& trans);
+
     Matrix4x4 inverse() const;                              // Compute the matrix inverse
     Matrix4x4 transpose() const;                            // Transpose rows and columns
 
