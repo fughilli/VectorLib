@@ -1,6 +1,8 @@
 #include "Matrix.h"
 #include <cstring>
 
+#define _FP(x) ((fp_type)(x))
+
 const Matrix4x4 Matrix4x4::zero = Matrix4x4();
 const Matrix4x4 Matrix4x4::one = Matrix4x4(1,1,1,1,
                                  1,1,1,1,
@@ -11,12 +13,17 @@ const Matrix4x4 Matrix4x4::identity = Matrix4x4(1,0,0,0,
                                       0,0,1,0,
                                       0,0,0,1);
 
+static void zeroInit(void* a, int32_t sz)
+{
+    for(uint32_t i = 0; i < sz; i++)
+    {
+        ((fp_type*)a)[i] = (fp_type)0;
+    }
+}
+
 Matrix4x4::Matrix4x4()
 {
-    for(uint32_t i = 0; i < 16; i++)
-    {
-        ((fp_type*)vals.a)[i] = (fp_type)0;
-    }
+    zeroInit(vals.a, 16);
 }
 
 Matrix4x4::Matrix4x4(const fp_type* init)
@@ -55,13 +62,44 @@ Matrix4x4::Matrix4x4(fp_type f00, fp_type f01, fp_type f02, fp_type f03,
 
 Matrix4x4::Matrix4x4(const Quaternion& rot)
 {
-    // TODO: Implement
-    Matrix4x4();
+    fp_type xx = rot.x*rot.x;
+    fp_type xy = rot.x*rot.y;
+    fp_type xz = rot.x*rot.z;
+    fp_type xw = rot.x*rot.w;
+
+    fp_type yy = rot.y*rot.y;
+    fp_type yz = rot.y*rot.z;
+    fp_type yw = rot.y*rot.w;
+
+    fp_type zz = rot.z*rot.z;
+    fp_type zw = rot.z*rot.w;
+
+    fp_type ww = rot.w*rot.w;
+
+    vals.d.f00 = _FP(1) - (_FP(2)*yy) - (_FP(2)*zz);
+    vals.d.f10 = _FP(2)*(xy - zw);
+    vals.d.f20 = _FP(2)*(xz - yw);
+    vals.d.f30 = 0;
+
+    vals.d.f01 = _FP(2)*(xy + zw);
+    vals.d.f11 = _FP(1) - (_FP(2)*xx) - (_FP(2)*zz);
+    vals.d.f21 = _FP(2)*(yz - xw);
+    vals.d.f31 = 0;
+
+    vals.d.f02 = _FP(2)*(xz - yw);
+    vals.d.f12 = _FP(2)*(yz + xw);
+    vals.d.f22 = _FP(1) - (_FP(2)*xx) - (_FP(2)*yy);
+    vals.d.f32 = 0;
+
+    vals.d.f03 = 0;
+    vals.d.f13 = 0;
+    vals.d.f23 = 0;
+    vals.d.f33 = 1;
 }
 
 Matrix4x4::Matrix4x4(fp_type scale)
 {
-    Matrix4x4();
+    zeroInit(vals.a, 16);
     vals.d.f00 = scale;
     vals.d.f11 = scale;
     vals.d.f22 = scale;
@@ -70,10 +108,14 @@ Matrix4x4::Matrix4x4(fp_type scale)
 
 Matrix4x4::Matrix4x4(const Vector3d& trans)
 {
-    Matrix4x4();
+    zeroInit(vals.a, 16);
     vals.d.f03 = trans.x;
     vals.d.f13 = trans.y;
     vals.d.f23 = trans.z;
+
+    vals.d.f00 = 1;
+    vals.d.f11 = 1;
+    vals.d.f22 = 1;
     vals.d.f33 = 1;
 }
 
