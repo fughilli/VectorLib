@@ -15,6 +15,8 @@
 //
 //  Copyright 2013-2014 Kevin Balke (fughilli@gmail.com)
 
+#ifdef __cplusplus
+
 #include "Vector.h"
 
 Quaternion::Quaternion(fp_type _x, fp_type _y, fp_type _z, fp_type _w)
@@ -211,3 +213,5 @@ const Quaternion Quaternion::identity = Quaternion(0,0,0,1);
 const Quaternion Quaternion::i = Quaternion(1,0,0,0);
 const Quaternion Quaternion::j = Quaternion(0,1,0,0);
 const Quaternion Quaternion::k = Quaternion(0,0,1,0);
+
+#endif

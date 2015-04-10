@@ -15,6 +15,8 @@
 //
 //  Copyright 2013-2014 Kevin Balke (fughilli@gmail.com)
 
+#ifdef __cplusplus
+
 #include "Vector.h"
 
 #ifdef ARDUINO
@@ -228,3 +230,5 @@ const Vector3d Vector3d::j = Vector3d(0.0f,1.0f,0.0f);
 const Vector3d Vector3d::k = Vector3d(0.0f,0.0f,1.0f);
 const Vector3d Vector3d::one = Vector3d(1.0f,1.0f,1.0f);
 const Vector3d Vector3d::zero = Vector3d(0.0f,0.0f,0.0f);
+
+#endif

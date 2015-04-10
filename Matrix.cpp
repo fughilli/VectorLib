@@ -1,3 +1,5 @@
+#ifdef __cplusplus
+
 #include "Matrix.h"
 #include <cstring>
 
@@ -318,3 +320,4 @@ Matrix4x4 Matrix4x4::operator-() const
     return ret;
 }
 
+#endif

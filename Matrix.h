@@ -1,6 +1,8 @@
 #ifndef _MATRIX_H_
 #define _MATRIX_H_
 
+#ifdef __cplusplus
+
 #include "Vector.h"
 
 struct Matrix2x2
@@ -114,5 +116,7 @@ struct Matrix4x4
     static const Matrix4x4 identity;
     static const Matrix4x4 one;
 };
+
+#endif
 
 #endif // _MATRIX_H_

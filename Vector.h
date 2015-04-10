@@ -18,6 +18,8 @@
 #ifndef VECTOR_X_H
 #define VECTOR_X_H
 
+#ifdef __cplusplus
+
 #define VECTORS
 
 #if defined(ARDUINO) || defined(ENERGIA)
@@ -198,6 +200,8 @@ void printVector3d(Vector3d arg);
 std::ostream& operator<<(std::ostream& os, Vector2d& vec);
 std::ostream& operator<<(std::ostream& os, Vector3d& vec);
 std::ostream& operator<<(std::ostream& os, Quaternion& vec);
+#endif
+
 #endif
 
 #endif

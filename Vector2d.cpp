@@ -15,6 +15,8 @@
 //
 //  Copyright 2013-2014 Kevin Balke (fughilli@gmail.com)
 
+#ifdef __cplusplus
+
 #include "Vector.h"
 
 #ifdef ARDUINO
@@ -177,3 +179,5 @@ const Vector2d Vector2d::i = Vector2d(1,0);
 const Vector2d Vector2d::j = Vector2d(0,1);
 const Vector2d Vector2d::one = Vector2d(1,1);
 const Vector2d Vector2d::zero = Vector2d(0,0);
+
+#endif
