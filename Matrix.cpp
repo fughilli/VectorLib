@@ -76,20 +76,18 @@ Matrix4x4::Matrix4x4(const Quaternion& rot)
     fp_type zz = rot.z*rot.z;
     fp_type zw = rot.z*rot.w;
 
-    fp_type ww = rot.w*rot.w;
-
     vals.d.f00 = _FP(1) - (_FP(2)*yy) - (_FP(2)*zz);
-    vals.d.f10 = _FP(2)*(xy - zw);
+    vals.d.f10 = _FP(2)*(xy + zw);
     vals.d.f20 = _FP(2)*(xz - yw);
     vals.d.f30 = 0;
 
-    vals.d.f01 = _FP(2)*(xy + zw);
+    vals.d.f01 = _FP(2)*(xy - zw);
     vals.d.f11 = _FP(1) - (_FP(2)*xx) - (_FP(2)*zz);
-    vals.d.f21 = _FP(2)*(yz - xw);
+    vals.d.f21 = _FP(2)*(yz + xw);
     vals.d.f31 = 0;
 
-    vals.d.f02 = _FP(2)*(xz - yw);
-    vals.d.f12 = _FP(2)*(yz + xw);
+    vals.d.f02 = _FP(2)*(xz + yw);
+    vals.d.f12 = _FP(2)*(yz - xw);
     vals.d.f22 = _FP(1) - (_FP(2)*xx) - (_FP(2)*yy);
     vals.d.f32 = 0;
 
