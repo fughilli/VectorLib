@@ -214,6 +214,20 @@ Vector3d Vector3d::operator-() const
     return Vector3d(-this->x, -this->y, -this->z);
 }
 
+Vector3d Vector3d::min2(const Vector3d& a, const Vector3d& b)
+{
+    return Vector3d((a.x < b.x) ? a.x : b.x,
+                    (a.x < b.x) ? a.y : b.y,
+                    (a.x < b.x) ? a.z : b.z);
+}
+
+Vector3d Vector3d::max2(const Vector3d& a, const Vector3d& b)
+{
+    return Vector3d((a.x > b.x) ? a.x : b.x,
+                    (a.x > b.x) ? a.y : b.y,
+                    (a.x > b.x) ? a.z : b.z);
+}
+
 #ifdef VECTOR_PRINT_PRECISION
 std::ostream& operator<<(std::ostream& os, const Vector3d& vec)
 {
@@ -230,5 +244,7 @@ const Vector3d Vector3d::j = Vector3d(0.0f,1.0f,0.0f);
 const Vector3d Vector3d::k = Vector3d(0.0f,0.0f,1.0f);
 const Vector3d Vector3d::one = Vector3d(1.0f,1.0f,1.0f);
 const Vector3d Vector3d::zero = Vector3d(0.0f,0.0f,0.0f);
+const Vector3d Vector3d::min = Vector3d(FLT_MIN,FLT_MIN,FLT_MIN);
+const Vector3d Vector3d::max = Vector3d(FLT_MAX,FLT_MAX,FLT_MAX);
 
 #endif

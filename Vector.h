@@ -30,6 +30,7 @@
 #include <cmath>
 #include <iostream>
 #include <iomanip>
+#include <cfloat>
 #define fp_type double
 
 #ifndef PI
