@@ -99,6 +99,7 @@ public:
     Quaternion slerp(const Quaternion& endpt, fp_type t) const;     // Perform a spherical linear interpolation between this quaternion and an end quaternion
 
     static Quaternion fromAxisAngle(const Vector3d& axis, fp_type theta);
+    static Quaternion rotationBetween(const Vector3d& a, const Vector3d& b);
 
     // Quaternion constants
     static const Quaternion zero;

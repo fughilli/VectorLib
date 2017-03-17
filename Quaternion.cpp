@@ -196,6 +196,24 @@ Quaternion Quaternion::operator-() const
     return Quaternion(-this->x, -this->y, -this->z, -this->w);
 }
 
+Quaternion Quaternion::rotationBetween(const Vector3d& va, const Vector3d& vb)
+{
+    if(va.magnitude() == 0 or vb.magnitude() == 0)
+        return Quaternion::l;
+
+    Vector3d vau = va.unit(), vbu = vb.unit();
+
+    if ((vau + vbu).magnitude() == 0)
+    {
+        Vector3d c = vau.cross(vb);
+        return Quaternion(c.x, c.y, c.z, 0);
+    }
+
+    Vector3d vh = (vau + vbu).unit();
+    Vector3d v = vau.cross(vh);
+    return Quaternion(v.x, v.y, v.z, vau.dot(vh));
+}
+
 #ifdef VECTOR_PRINT_PRECISION
 std::ostream& operator<<(std::ostream& os, const Quaternion& vec)
 {
