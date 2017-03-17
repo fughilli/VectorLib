@@ -323,4 +323,29 @@ Vector3d Matrix4x4::translation() const
     return Vector3d(vals.d.f03, vals.d.f13, vals.d.f23);
 }
 
+#ifdef VECTOR_PRINT_PRECISION
+std::ostream& operator<<(std::ostream& os, const Matrix4x4& m)
+{
+    os << "[" //<< std::setprecision(VECTOR_PRINT_PRECISION)
+    << "[" << round(m.vals.d.f00 * pow(10, VECTOR_PRINT_PRECISION))/pow(10, VECTOR_PRINT_PRECISION) << ", "
+           << round(m.vals.d.f01 * pow(10, VECTOR_PRINT_PRECISION))/pow(10, VECTOR_PRINT_PRECISION) << ", "
+           << round(m.vals.d.f02 * pow(10, VECTOR_PRINT_PRECISION))/pow(10, VECTOR_PRINT_PRECISION) << ", "
+           << round(m.vals.d.f03 * pow(10, VECTOR_PRINT_PRECISION))/pow(10, VECTOR_PRINT_PRECISION) << "], "
+    << "[" << round(m.vals.d.f10 * pow(10, VECTOR_PRINT_PRECISION))/pow(10, VECTOR_PRINT_PRECISION) << ", "
+           << round(m.vals.d.f11 * pow(10, VECTOR_PRINT_PRECISION))/pow(10, VECTOR_PRINT_PRECISION) << ", "
+           << round(m.vals.d.f12 * pow(10, VECTOR_PRINT_PRECISION))/pow(10, VECTOR_PRINT_PRECISION) << ", "
+           << round(m.vals.d.f13 * pow(10, VECTOR_PRINT_PRECISION))/pow(10, VECTOR_PRINT_PRECISION) << "], "
+    << "[" << round(m.vals.d.f20 * pow(10, VECTOR_PRINT_PRECISION))/pow(10, VECTOR_PRINT_PRECISION) << ", "
+           << round(m.vals.d.f21 * pow(10, VECTOR_PRINT_PRECISION))/pow(10, VECTOR_PRINT_PRECISION) << ", "
+           << round(m.vals.d.f22 * pow(10, VECTOR_PRINT_PRECISION))/pow(10, VECTOR_PRINT_PRECISION) << ", "
+           << round(m.vals.d.f23 * pow(10, VECTOR_PRINT_PRECISION))/pow(10, VECTOR_PRINT_PRECISION) << "], "
+    << "[" << round(m.vals.d.f30 * pow(10, VECTOR_PRINT_PRECISION))/pow(10, VECTOR_PRINT_PRECISION) << ", "
+           << round(m.vals.d.f31 * pow(10, VECTOR_PRINT_PRECISION))/pow(10, VECTOR_PRINT_PRECISION) << ", "
+           << round(m.vals.d.f32 * pow(10, VECTOR_PRINT_PRECISION))/pow(10, VECTOR_PRINT_PRECISION) << ", "
+           << round(m.vals.d.f33 * pow(10, VECTOR_PRINT_PRECISION))/pow(10, VECTOR_PRINT_PRECISION) << "]"
+    << "]";
+    return os;
+}
+#endif
+
 #endif

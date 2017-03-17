@@ -118,6 +118,12 @@ struct Matrix4x4
     static const Matrix4x4 one;
 };
 
+#if defined(ARDUINO) || defined(ENERGIA)
+
+#else
+std::ostream& operator<<(std::ostream& os, const Matrix4x4& vec);
+#endif
+
 #endif
 
 #endif // _MATRIX_H_
