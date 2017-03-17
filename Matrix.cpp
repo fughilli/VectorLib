@@ -15,7 +15,7 @@ const Matrix4x4 Matrix4x4::identity = Matrix4x4(1,0,0,0,
                                       0,0,1,0,
                                       0,0,0,1);
 
-static void zeroInit(void* a, int32_t sz)
+static void zeroInit(void* a, uint32_t sz)
 {
     for(uint32_t i = 0; i < sz; i++)
     {
