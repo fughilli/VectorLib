@@ -318,4 +318,9 @@ Matrix4x4 Matrix4x4::operator-() const
     return ret;
 }
 
+Vector3d Matrix4x4::translation() const
+{
+    return Vector3d(vals.d.f03, vals.d.f13, vals.d.f23);
+}
+
 #endif

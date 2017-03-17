@@ -109,6 +109,7 @@ struct Matrix4x4
     fp_type det() const;
 
     Vector3d operator*(const Vector3d& other) const;       // Apply the matrix transform to a Vector3d
+    Vector3d translation() const;
 
     Matrix4x4 operator-() const;
 
