@@ -323,6 +323,43 @@ Vector3d Matrix4x4::translation() const
     return Vector3d(vals.d.f03, vals.d.f13, vals.d.f23);
 }
 
+Matrix4x4 Matrix4x4::orthogonalize() const
+{
+    Matrix4x4 ret;
+
+    memcpy(&ret, this, sizeof(ret));
+
+    Vector3d xv(ret.vals.d.f00, ret.vals.d.f01, ret.vals.d.f02);
+    Vector3d yv(ret.vals.d.f10, ret.vals.d.f11, ret.vals.d.f12);
+
+    fp_type error = xv.dot(yv);
+
+    Vector3d xv_ort = xv - (yv * (error/2));
+    Vector3d yv_ort = yv - (xv * (error/2));
+
+    Vector3d zv_ort = xv_ort.cross(yv_ort);
+
+    Vector3d x_new = xv_ort.unit(); // * (0.5 * (3 - xv_ort.dot(xv_ort)));
+    Vector3d y_new = yv_ort.unit(); // * (0.5 * (3 - yv_ort.dot(yv_ort)));
+    Vector3d z_new = zv_ort.unit(); // * (0.5 * (3 - zv_ort.dot(zv_ort)));
+
+    ret.vals.d.f00 = x_new.x;
+    ret.vals.d.f01 = x_new.y;
+    ret.vals.d.f02 = x_new.z;
+
+    ret.vals.d.f10 = y_new.x;
+    ret.vals.d.f11 = y_new.y;
+    ret.vals.d.f12 = y_new.z;
+
+    ret.vals.d.f20 = z_new.x;
+    ret.vals.d.f21 = z_new.y;
+    ret.vals.d.f22 = z_new.z;
+
+    ret.vals.d.f30 = ret.vals.d.f31 = ret.vals.d.f32 = 0;
+
+    return ret;
+}
+
 #ifdef VECTOR_PRINT_PRECISION
 std::ostream& operator<<(std::ostream& os, const Matrix4x4& m)
 {

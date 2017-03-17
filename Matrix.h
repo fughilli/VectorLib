@@ -112,6 +112,7 @@ struct Matrix4x4
     Vector3d translation() const;
 
     Matrix4x4 operator-() const;
+    Matrix4x4 orthogonalize() const;
 
     static const Matrix4x4 zero;
     static const Matrix4x4 identity;
