@@ -166,7 +166,7 @@ Vector2d Vector2d::operator-() const
 }
 
 #ifdef VECTOR_PRINT_PRECISION
-std::ostream& operator<<(std::ostream& os, Vector2d& vec)
+std::ostream& operator<<(std::ostream& os, const Vector2d& vec)
 {
     os << "<"
     << (round(vec.x * pow(10, VECTOR_PRINT_PRECISION))/pow(10, VECTOR_PRINT_PRECISION)) << ", "

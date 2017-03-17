@@ -197,7 +197,7 @@ Quaternion Quaternion::operator-() const
 }
 
 #ifdef VECTOR_PRINT_PRECISION
-std::ostream& operator<<(std::ostream& os, Quaternion& vec)
+std::ostream& operator<<(std::ostream& os, const Quaternion& vec)
 {
     os << "<" //<< std::setprecision(VECTOR_PRINT_PRECISION)
     << round(vec.x * pow(10, VECTOR_PRINT_PRECISION))/pow(10, VECTOR_PRINT_PRECISION) << ", " //<< std::setprecision(VECTOR_PRINT_PRECISION)

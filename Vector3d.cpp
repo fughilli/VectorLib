@@ -215,7 +215,7 @@ Vector3d Vector3d::operator-() const
 }
 
 #ifdef VECTOR_PRINT_PRECISION
-std::ostream& operator<<(std::ostream& os, Vector3d& vec)
+std::ostream& operator<<(std::ostream& os, const Vector3d& vec)
 {
     os << "<" //<< std::setprecision(VECTOR_PRINT_PRECISION)
     << round(vec.x * pow(10, VECTOR_PRINT_PRECISION))/pow(10, VECTOR_PRINT_PRECISION) << ", " //<< std::setprecision(VECTOR_PRINT_PRECISION)

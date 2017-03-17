@@ -185,21 +185,26 @@ public:
     fp_type theta() const;								// Compute the angle the (x,y) components of the Vector3d point along (spherical theta)
     fp_type rho() const;								// Compute the angle of elevation of the Vector3d out of the (x,y) plane (spherical rho)
 
+    static Vector3d min2(const Vector3d& a, const Vector3d& b);
+    static Vector3d max2(const Vector3d& a, const Vector3d& b);
+
     // 3D Vector constants
     static const Vector3d zero;
     static const Vector3d i;
     static const Vector3d j;
     static const Vector3d k;
     static const Vector3d one;
+    static const Vector3d max;
+    static const Vector3d min;
 };
 
 #if defined(ARDUINO) || defined(ENERGIA)
 void printVector2d(Vector2d arg);
 void printVector3d(Vector3d arg);
 #else
-std::ostream& operator<<(std::ostream& os, Vector2d& vec);
-std::ostream& operator<<(std::ostream& os, Vector3d& vec);
-std::ostream& operator<<(std::ostream& os, Quaternion& vec);
+std::ostream& operator<<(std::ostream& os, const Vector2d& vec);
+std::ostream& operator<<(std::ostream& os, const Vector3d& vec);
+std::ostream& operator<<(std::ostream& os, const Quaternion& vec);
 #endif
 
 #endif
