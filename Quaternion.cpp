@@ -231,5 +231,6 @@ const Quaternion Quaternion::identity = Quaternion(0,0,0,1);
 const Quaternion Quaternion::i = Quaternion(1,0,0,0);
 const Quaternion Quaternion::j = Quaternion(0,1,0,0);
 const Quaternion Quaternion::k = Quaternion(0,0,1,0);
+const Quaternion Quaternion::l = Quaternion(0,0,0,1);
 
 #endif

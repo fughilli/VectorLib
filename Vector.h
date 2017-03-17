@@ -107,6 +107,7 @@ public:
     static const Quaternion i;
     static const Quaternion j;
     static const Quaternion k;
+    static const Quaternion l;
 };
 
 class Vector2d
