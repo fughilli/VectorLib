@@ -24,14 +24,22 @@
 
 #if defined(ARDUINO) || defined(ENERGIA)
 #include "Energia.h"
-#define fp_type float
+#ifdef OVERRIDE_FPTYPE_DOUBLE
+    typedef double fp_type;
+#else
+    typedef float fp_type;
+#endif
 #else
 
 #include <cmath>
 #include <iostream>
 #include <iomanip>
 #include <cfloat>
-#define fp_type double
+#ifdef OVERRIDE_FPTYPE_FLOAT
+    typedef float fp_type;
+#else
+    typedef double fp_type;
+#endif
 
 #ifndef PI
 #define PI (3.1415926535897932384626433832795)
